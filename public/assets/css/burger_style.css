@@ -1,0 +1,9 @@
+body {
+    background-color: #336699;
+    color: #ffffff;
+    font: normal 12px Arial;
+}
+
+.centered {
+    text-align: center;
+}

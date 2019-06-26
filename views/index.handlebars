@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h6>Burgers that have not been devoured:</h6>
+            <ul>
+                {{#each burgers}}
+                {{#unless devoured}}
+                <li>
+                    <div>
+                        {{id}} {{burger_name}}
+                        <button type="button" class="eatBurgerButton" title="{{id}}">Eat!</button>
+                    </div>
+                </li>
+                {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-sm">
+            <h3>Mmmm, Burgers!</h3>
+            <img src="assets/img/burger.png" alt="Burger" />
+            <div>
+                <h2>Order a Burger</h2>
+            </div>
+            <div>
+                <label for="ca">Burger Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <button type="button" id="submit">Add Burger</button>
+        </div>
+        <div class="col-sm">
+            <h6>Burgers that have been devoured:</h6>
+            <ul>
+                {{#each burgers}}
+                {{#if devoured}}
+                <li>
+                    {{id}} {{burger_name}}
+                </li>
+                {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#submit").click(function () {
+        var request = $.ajax({
+            method: "POST",
+            url: "/api/add",
+            data: { burger_name: $("#name").val() }
+        });
+
+        request.then(function () {
+            location.reload();
+        });
+    });
+
+    $(".eatBurgerButton").click(function () {
+        var request = $.ajax({
+            method: "POST",
+            url: "/api/eat",
+            data: { id: this.title }
+        });
+
+        request.then(function () {
+            location.reload();
+        });
+    });
+</script>
